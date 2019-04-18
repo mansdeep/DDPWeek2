@@ -1,0 +1,41 @@
+---
+title: "Leaflet Map"
+author: "Manas Chatterjee"
+date: "April 17, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Runtime of this project
+Display System Date and Time.
+```{r datetime}
+print(paste("Current Date : ",Sys.Date(), " and Current Time : ",Sys.time()))
+
+```
+
+## My School on Leaflet Map
+Create a leaflet map object.
+```{r cars}
+library(leaflet)
+map <- leaflet() %>% addTiles()
+```
+
+Create a marker with a picture of BZS and a link to its website.
+```{r}
+BZSIcon <- makeIcon(
+   iconUrl = "https://www.google.com/maps/place/Birbhum+Zilla+School/@23.9092271,87.5293633,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6%3Dw203-h270-k-no!7i780!8i1040!4m12!1m6!3m5!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!2sBirbhum+Zilla+School!8m2!3d23.9092271!4d87.5293633!3m4!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!8m2!3d23.9092271!4d87.5293633",
+   iconWidth = 30*408/255, iconHeight = 30,
+   iconAnchorX = 30*408/255/2, iconAnchorY = 30/2
+)
+```
+
+Add the marker to the map and display the map.
+```{r}
+BZSPopup <- c("<a href= 'http://www.icbse.com/schools/birbhum-zilla-school-h/19082100804' >Birbhum Zilla School<br><img src='https://www.google.com/maps/place/Birbhum+Zilla+School/@23.9092271,87.5293633,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6%3Dw203-h270-k-no!7i780!8i1040!4m12!1m6!3m5!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!2sBirbhum+Zilla+School!8m2!3d23.9092271!4d87.5293633!3m4!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!8m2!3d23.9092271!4d87.5293633' width='210' height='132'  alt='BZS' title='Birbhul Zilla School'></a>")
+map %>%
+   addTiles() %>%
+   addMarkers(lat=23.9092, lng=87.5294, popup = BZSPopup)

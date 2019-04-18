@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Manas Chatterjee" />
+
+<meta name="date" content="2019-04-17" />
+
+<title>Leaflet Map</title>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("section-TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="fluid-row" id="section-header">
+
+
+
+<h1 class="title toc-ignore">Leaflet Map</h1>
+<h4 class="author">Manas Chatterjee</h4>
+<h4 class="date">April 17, 2019</h4>
+
+</div>
+
+
+<div id="section-runtime-of-this-project" class="section level2">
+<h2>Runtime of this project</h2>
+<p>Display System Date and Time.</p>
+<pre class="r"><code>print(paste(&quot;Current Date : &quot;,Sys.Date(), &quot; and Current Time : &quot;,Sys.time()))</code></pre>
+<pre><code>## [1] &quot;Current Date :  2019-04-17  and Current Time :  2019-04-17 22:01:41&quot;</code></pre>
+</div>
+<div id="section-my-school-on-leaflet-map" class="section level2">
+<h2>My School on Leaflet Map</h2>
+<p>Create a leaflet map object.</p>
+<pre class="r"><code>library(leaflet)</code></pre>
+<pre><code>## Warning: package &#39;leaflet&#39; was built under R version 3.5.3</code></pre>
+<pre class="r"><code>map &lt;- leaflet() %&gt;% addTiles()</code></pre>
+<p>Create a marker with a picture of BZS and a link to its website.</p>
+<pre class="r"><code>BZSIcon &lt;- makeIcon(
+   iconUrl = &quot;https://www.google.com/maps/place/Birbhum+Zilla+School/@23.9092271,87.5293633,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6%3Dw203-h270-k-no!7i780!8i1040!4m12!1m6!3m5!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!2sBirbhum+Zilla+School!8m2!3d23.9092271!4d87.5293633!3m4!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!8m2!3d23.9092271!4d87.5293633&quot;,
+   iconWidth = 30*408/255, iconHeight = 30,
+   iconAnchorX = 30*408/255/2, iconAnchorY = 30/2
+)</code></pre>
+<p>Add the marker to the map and display the map.</p>
+<pre class="r"><code>BZSPopup &lt;- c(&quot;&lt;a href= &#39;http://www.icbse.com/schools/birbhum-zilla-school-h/19082100804&#39; &gt;Birbhum Zilla School&lt;br&gt;&lt;img src=&#39;https://www.google.com/maps/place/Birbhum+Zilla+School/@23.9092271,87.5293633,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6%3Dw203-h270-k-no!7i780!8i1040!4m12!1m6!3m5!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!2sBirbhum+Zilla+School!8m2!3d23.9092271!4d87.5293633!3m4!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!8m2!3d23.9092271!4d87.5293633&#39; width=&#39;210&#39; height=&#39;132&#39;  alt=&#39;BZS&#39; title=&#39;Birbhul Zilla School&#39;&gt;&lt;/a&gt;&quot;)
+map %&gt;%
+   addTiles() %&gt;%
+   addMarkers(lat=23.9092, lng=87.5294, popup = BZSPopup)</code></pre>
+<div id="htmlwidget-286a4b037424705879ce" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-286a4b037424705879ce">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[23.9092,87.5294,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},"<a href= 'http://www.icbse.com/schools/birbhum-zilla-school-h/19082100804' >Birbhum Zilla School<br><img src='https://www.google.com/maps/place/Birbhum+Zilla+School/@23.9092271,87.5293633,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOP36DWhO2aW0usFuX56jYqT5X707n4lh3TbXQ6%3Dw203-h270-k-no!7i780!8i1040!4m12!1m6!3m5!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!2sBirbhum+Zilla+School!8m2!3d23.9092271!4d87.5293633!3m4!1s0x39f7586d5a4506a9:0x9cfe7630cf29fa45!8m2!3d23.9092271!4d87.5293633' width='210' height='132'  alt='BZS' title='Birbhul Zilla School'><\/a>",null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[23.9092,23.9092],"lng":[87.5294,87.5294]}},"evals":[],"jsHooks":[]}</script>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
